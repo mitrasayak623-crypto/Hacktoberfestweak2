@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "UserProfile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "email"]
+    },
+    "receiptRecord": {
+      "title": "ReceiptRecord",
+      "description": "Financial receipt or invoice document record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "filename": { "type": "string", "maxLength": 256 },
+        "vendor": { "type": "string", "maxLength": 128 },
+        "invoiceNumber": { "type": "string", "maxLength": 64 },
+        "date": { "type": "string", "maxLength": 32 },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "maxLength": 10 },
+        "taxAmount": { "type": "number" },
+        "category": { "type": "string", "maxLength": 64 },
+        "isDeductible": { "type": "boolean" },
+        "deductiblePercentage": { "type": "number" },
+        "clientProject": { "type": "string", "maxLength": 128 },
+        "isBillableToClient": { "type": "boolean" },
+        "paymentMethod": { "type": "string", "maxLength": 64 },
+        "notes": { "type": "string", "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["verified", "needs_review", "flagged"] },
+        "confidenceScore": { "type": "number" },
+        "flags": { "type": "array" },
+        "extractionModel": { "type": "string", "maxLength": 128 },
+        "processedAt": { "type": "string", "maxLength": 64 },
+        "hasVisualPreview": { "type": "boolean" },
+        "previewType": { "type": "string", "maxLength": 32 }
+      },
+      "required": ["id", "userId", "vendor", "date", "amount", "category"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "userProfile" },
+      "description": "User account document"
+    },
+    "/users/{userId}/receipts/{receiptId}": {
+      "schema": { "$ref": "receiptRecord" },
+      "description": "Itemized receipts and expense invoices belonging to the authenticated user"
+    }
+  }
+}

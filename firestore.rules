@@ -1,0 +1,45 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Catch-All Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Security Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidReceipt(data) {
+      return data.vendor is string && data.vendor.size() > 0 && data.vendor.size() <= 128 &&
+             data.amount is number && data.amount >= 0 &&
+             data.category is string && data.category.size() <= 64 &&
+             data.date is string && data.date.size() <= 32;
+    }
+
+    // 2. User Profiles
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if false;
+
+      // 3. User Itemized Receipts Subcollection
+      match /receipts/{receiptId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(receiptId) && isValidReceipt(request.resource.data);
+        allow update: if isOwner(userId) && isValidId(receiptId) && isValidReceipt(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}

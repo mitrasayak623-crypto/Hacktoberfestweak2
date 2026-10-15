@@ -1,0 +1,6 @@
+{
+  "name": "VaultLedger AI",
+  "description": "Zero-leak local-first bookkeeping and invoice sorter for freelancers, powered by open-weight AI models running directly on-device with zero cloud data transmission.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

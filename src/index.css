@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --color-gold-400: #FACC15;
+  --color-gold-500: #EAB308;
+  --color-gold-600: #CA8A04;
+}
+
+/* Background with deep obsidian black and a subtle touch of luminous sapphire blue */
+body {
+  background-color: #030712;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 55, 120, 0.28), transparent 70%),
+    radial-gradient(circle 600px at 15% 45%, rgba(6, 32, 85, 0.2), transparent 80%),
+    radial-gradient(circle 500px at 85% 75%, rgba(16, 45, 110, 0.15), transparent 70%),
+    radial-gradient(circle 400px at 50% 100%, rgba(250, 204, 21, 0.04), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Custom scrollbars for high density financial ledgers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(250, 204, 21, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(250, 204, 21, 0.6);
+}
+
+/* Glassmorphism & Metallic Gold / Sapphire Effects */
+.gold-glow {
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.18);
+}
+.sapphire-glow {
+  box-shadow: 0 0 35px rgba(37, 99, 235, 0.2);
+}
+.gold-border {
+  border-color: rgba(250, 204, 21, 0.3);
+}
+.sapphire-border {
+  border-color: rgba(59, 130, 246, 0.25);
+}
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FEF08A 0%, #FACC15 50%, #CA8A04 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sapphire-gradient-text {
+  background: linear-gradient(135deg, #93C5FD 0%, #3B82F6 50%, #1D4ED8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
